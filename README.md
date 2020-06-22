@@ -1,4 +1,4 @@
-# godot-gym-cpp
+gymcpp
 OpenAI gym inspired, c++ module for godot.
 
 ## TODO / Notes / References
