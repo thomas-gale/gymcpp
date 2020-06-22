@@ -2,4 +2,6 @@
 
 Import('env')
 
-env.add_source_files(env.modules_sources, "src/*.cpp") # Add all src cpp files to the build
+src_list = ["register_types.cpp", "src/summator.cpp"]
+
+env.add_source_files(env.modules_sources, src_list) # Add all src cpp files to the build
