@@ -1,7 +1,16 @@
 # SCsub
 
 Import('env')
+env_gymcpp = env.Clone()
 
-src_list = ["register_types.cpp", "src/summator.cpp"]
+# Add protoc generated source to the build
+env_gymcpp.add_source_files(env.modules_sources, "build/protobuf/*.cc")
 
-env.add_source_files(env.modules_sources, src_list) # Add all src cpp files to the build
+# Add the src server cpp files to the build.
+# .. TODO
+
+# Add all src GDCLASS cpp files to the build
+env_gymcpp.add_source_files(env.modules_sources, ["register_types.cpp", "src/summator.cpp"]) 
+
+# Link with protobuf and grpc
+env.Append(LIBS=['protobuf', 'grpc++', 'grpc++_reflection'])
