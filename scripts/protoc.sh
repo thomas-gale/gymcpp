@@ -3,4 +3,4 @@
 set -e
 
 mkdir -p build/protobuf
-protoc --proto_path=protobuf --cpp_out=build/protobuf protobuf/*.proto
+protoc --proto_path=lib/gymcpp-protobuf --cpp_out=build/protobuf lib/gymcpp-protobuf/*.proto
