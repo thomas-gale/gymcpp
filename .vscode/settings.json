@@ -1,4 +1,7 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-    "clang-tidy.compilerArgs": ["-x", "c++"]
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/build/test/googletest-src/googletest/include/**",
+    ],
+    "clang-tidy.compilerArgsBefore": ["-x c++"]
 }

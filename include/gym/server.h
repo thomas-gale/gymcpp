@@ -4,10 +4,9 @@
 namespace gym {
 
 class Server {
-public:
-  void helloWorld();
+  public:
+    void helloWorld();
 };
-
-} // namespace gymcpp
+} // namespace gym
 
 #endif // __GYM_SERVER_H__

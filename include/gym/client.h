@@ -4,10 +4,10 @@
 namespace gym {
 
 class Client {
-public:
-  void helloWorld();
+  public:
+    void helloWorld();
 };
 
-} // namespace gymcpp
+} // namespace gym
 
 #endif // __GYM_CLIENT_H__
