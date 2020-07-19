@@ -4,17 +4,23 @@
 
 namespace gym {
 
-Client::Client(const std::string& url) : url_(url) {}
+Client::Client(std::shared_ptr<grpc::Channel> channel)
+    : stub_(gymcpp::Gym::NewStub(channel)) {}
 
-void Client::sendEnvRequest(const gymcpp::EnvironmentRequest& request) {
-    // Send ZMQ request.
+void Client::testRequests() {
+    // Send gRPC request
+    gymcpp::EnvironmentRequest envRequest;
+
+    // Response
+    gymcpp::EnvironmentResponse envResponse;
+
+    grpc::ClientContext context;
+    grpc::Status status =
+        stub_->EnvironmentInfo(&context, envRequest, &envResponse);
+
+    if (!status.ok()) {
+        std::cout << "Error on TestRequests\n";
+    }
 }
-
-std::unique_ptr<gymcpp::EnvironmentResponse> Client::getEnvResponse() {
-    // Get the latest response
-    return nullptr;
-}
-
-void Client::helloWorld() { std::cout << "Client hello world!\n"; }
 
 } // namespace gym

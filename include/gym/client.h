@@ -4,22 +4,22 @@
 #include <memory>
 #include <string>
 
+#include <grpcpp/grpcpp.h>
+
 #include "environment_request.pb.h"
 #include "environment_response.pb.h"
+#include "gym.grpc.pb.h"
 
 namespace gym {
 
 class Client {
   public:
-    Client(const std::string& url);
+    Client(std::shared_ptr<grpc::Channel> channel);
 
-    void sendEnvRequest(const gymcpp::EnvironmentRequest& request);
-    std::unique_ptr<gymcpp::EnvironmentResponse> getEnvResponse();
-
-    void helloWorld();
+    void testRequests();
 
   private:
-    std::string url_;
+    std::unique_ptr<gymcpp::Gym::Stub> stub_;
 };
 
 } // namespace gym
