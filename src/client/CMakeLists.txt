@@ -6,6 +6,7 @@ add_library(gymcpp_client
 
 target_include_directories(gymcpp_client
     PUBLIC 
+    ${PROTO_SOURCE}
     ${PROJECT_SOURCE_DIR}/include)
 
 target_link_libraries(gymcpp_client 

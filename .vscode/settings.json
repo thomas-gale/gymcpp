@@ -1,8 +1,9 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "C_Cpp.default.includePath": [
-        "${workspaceFolder}/include/gym**",
-        "${workspaceFolder}/build/test/googletest-src/googletest/include/**",
+        "${workspaceFolder}/include/gym/*",
+        "${workspaceFolder}/build/protobuf/*",
+        "${workspaceFolder}/build/test/googletest-src/googletest/include/*",
     ],
     "clang-tidy.compilerArgsBefore": ["-x c++"]
 }

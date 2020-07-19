@@ -5,6 +5,13 @@ namespace gym {
 
 class Server {
   public:
+    Server();
+    ~Server();
+
+    // Blocking function serve forever till interrupted
+    void serve();
+
+    // Test
     void helloWorld();
 };
 } // namespace gym
