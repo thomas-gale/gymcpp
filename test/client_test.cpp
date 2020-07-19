@@ -1,9 +1,9 @@
-#include "gym/server.h"
+#include "gym/client.h"
 #include "gtest/gtest.h"
 
 namespace testgym {
-TEST(Server, CreateServer) {
+TEST(Client, CreateClient) {
     // Act
-    gym::Server testServer;
+    gym::Client testClient;
 }
 } // namespace testgym
