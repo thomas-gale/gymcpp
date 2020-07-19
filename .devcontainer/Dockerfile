@@ -4,6 +4,7 @@ FROM nvidia/opengl:1.0-glvnd-devel-ubuntu18.04
 # Global settings
 ENV CMAKE_VERSION=3.17.2
 ENV PROTO_VERSION=3.12.3
+ENV GRPC_VERSION=1.30.2
 
 # Configure a SUDO non-root user (no password)
 ARG USERNAME=vscode
@@ -46,18 +47,13 @@ RUN cd /usr/local/src && sudo wget https://github.com/protocolbuffers/protobuf/r
     && sudo make install \
     && sudo ldconfig
 
-# MOVE UP
-ENV GRPC_VERSION=1.30.2
-
 # gRPC
+# https://github.com/grpc/grpc/blob/master/BUILDING.md#clone-the-repository-including-submodules
 RUN sudo apt-get update \
-    && sudo apt-get install -y build-essential autoconf libtool pkg-config
-
-RUN cd /usr/local/src \ && sudo git clone -b v$GRPC_VERSION https://github.com/grpc/grpc \
+    && sudo apt-get install -y build-essential autoconf libtool pkg-config \
+    && cd /usr/local/src \ && sudo git clone -b v$GRPC_VERSION https://github.com/grpc/grpc \
     && cd grpc \
-    && sudo git submodule update --init
-
-RUN cd /usr/local/src/grpc \
+    && sudo git submodule update --init \
     && sudo mkdir -p cmake/build \
     && cd cmake/build \
     && sudo cmake ../.. \

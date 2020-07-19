@@ -1,18 +1,21 @@
 #ifndef __GYM_SERVER_H__
 #define __GYM_SERVER_H__
 
+#include <string>
+
 namespace gym {
 
 class Server {
   public:
-    Server();
+    Server(const std::string& host, int port);
     ~Server();
 
     // Blocking function serve forever till interrupted
-    void serve();
+    void run();
 
-    // Test
-    void helloWorld();
+    private:
+      std::string host_;
+      int port_;
 };
 } // namespace gym
 

@@ -7,13 +7,14 @@ add_library(gymcpp_server
 target_include_directories(gymcpp_server
     PUBLIC 
     ${PROTO_SOURCE}
-    ${PROJECT_SOURCE_DIR}/include
-    PRIVATE
-    ${ZMQCPP_DIR})
+    ${PROJECT_SOURCE_DIR}/include)
+    #PRIVATE
+    #${gRPC_LIBRARIES})
 
 target_link_libraries(gymcpp_server 
     PUBLIC
     ${Protobuf_LIBRARIES}
     PRIVATE
     stdc++fs
-    zmqcpp)
+    gRPC::grpc++
+    grpc++_reflection)

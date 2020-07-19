@@ -4,22 +4,15 @@
 namespace testgym {
 TEST(Server, CreateServer) {
     // Act
-    gym::Server testServer;
+    gym::Server testServer("localhost", 50051);
 }
 
-TEST(Server, Serve) {
+TEST(Server, Run) {
     // Arrange
-    gym::Server testServer;
+    gym::Server testServer("localhost", 50051);
 
     // Act
-    testServer.serve();
+    testServer.run();
 }
 
-TEST(Server, HelloWorld) {
-    // Arrange
-    gym::Server testServer;
-
-    // Act
-    testServer.helloWorld();
-}
 } // namespace testgym

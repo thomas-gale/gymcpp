@@ -1,43 +1,73 @@
 #include "gym/server.h"
 
 #include <iostream>
+#include <sstream>
 
-#include "zmq.hpp"
+#include <grpcpp/ext/proto_server_reflection_plugin.h>
+#include <grpcpp/grpcpp.h>
+#include <grpcpp/health_check_service_interface.h>
+
+#include "gym.grpc.pb.h"
 
 namespace gym {
 
-Server::Server() {
-    // Initialise ZMQ server
+class GymImpl final : public gymcpp::Gym::Service {
+    grpc::Status
+    EnvironmentInfo(grpc::ServerContext* context,
+                    const gymcpp::EnvironmentRequest* request,
+                    gymcpp::EnvironmentResponse* response) override {
+        // Get information about environment
+
+        return grpc::Status::OK;
+    }
+
+    grpc::Status Reset(grpc::ServerContext* context,
+                       const gymcpp::ResetRequest* request,
+                       gymcpp::ResetResponse* response) override {
+        // Reset environment
+
+        return grpc::Status::OK;
+    }
+
+    grpc::Status Step(grpc::ServerContext* context,
+                      const gymcpp::StepRequest* request,
+                      gymcpp::StepResponse* response) override {
+        // Step in environment
+
+        return grpc::Status::OK;
+    }
+};
+
+Server::Server(const std::string& host, int port) : host_(host), port_(port) {
+    // Init gRPC server?
 }
 
 Server::~Server() {
-    // Cleanup ZMQ server
+    // Cleanup gRPC server
 }
 
-void Server::serve() {
-    // Blocking function serve forever till interrupted
+void Server::run() {
+    std::stringstream ss; 
+    ss << host_ << ":" << port_;
 
-    // Create zmq context with single thread.
-    zmq::context_t context(1);
+    GymImpl service;
 
-    // Create responder
-    zmq::socket_t responder(context, ZMQ_REP);
-    responder.connect("tcp://localhost:5560");
+    grpc::EnableDefaultHealthCheckService(true);
+    grpc::reflection::InitProtoReflectionServerBuilderPlugin();
+    grpc::ServerBuilder builder;
 
-    while(true) {
-        //  Wait for next request from client
-        std::string string = responder.recv();
-        
-        std::cout << "Received request: " << string << std::endl;
-        
-        // Do some 'work'
-        sleep (1);
-        
-        //  Send reply back to client
-        s_send (responder, "World");
-    }
+    // Listen on the given address without any authentication mechanism.
+    builder.AddListeningPort(ss.str(), grpc::InsecureServerCredentials());
+    // Register "service" as the instance through which we'll communicate with
+    // clients. In this case it corresponds to an *synchronous* service.
+    builder.RegisterService(&service);
+    // Finally assemble the server.
+    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
+    std::cout << "Server listening on " << ss.str() << std::endl;
 
+    // Wait for the server to shutdown. Note that some other thread must be
+    // responsible for shutting down the server for this call to ever return.
+    server->Wait();
 }
 
-void Server::helloWorld() { std::cout << "Server hello world!\n"; }
 } // namespace gym
