@@ -1,3 +1,6 @@
 [submodule "protobuf"]
 	path = lib/gymcpp-protobuf
 	url = git@github.com:thomas-gale/gymcpp-protobuf.git
+[submodule "lib/libzmq"]
+	path = lib/libzmq
+	url = git@github.com:zeromq/libzmq.git
