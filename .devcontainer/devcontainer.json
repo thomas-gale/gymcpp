@@ -11,6 +11,12 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
+		"twxs.cmake",
+		"ms-vscode.cmake-tools",
+		"ms-vscode.cpptools",
+		"mitaki28.vscode-clang",
+		"xaver.clang-format",
+		"notskm.clang-tidy",
 		"robbowen.synthwave-vscode" // Very important
 	],
 
@@ -18,7 +24,7 @@
 	//"forwardPorts": [6006], // Tensorboard port
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": "./.devcontainer/post-create.sh",
 
 	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-in-docker.
 	//"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
