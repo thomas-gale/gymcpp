@@ -7,9 +7,13 @@ add_library(gymcpp_server
 target_include_directories(gymcpp_server
     PUBLIC 
     ${PROTO_SOURCE}
-    ${PROJECT_SOURCE_DIR}/include)
+    ${PROJECT_SOURCE_DIR}/include
+    PRIVATE
+    ${ZMQCPP_DIR})
 
 target_link_libraries(gymcpp_server 
     PUBLIC
     ${Protobuf_LIBRARIES}
-    stdc++fs)
+    PRIVATE
+    stdc++fs
+    zmqcpp)

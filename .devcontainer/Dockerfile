@@ -2,7 +2,6 @@
 FROM nvidia/opengl:1.0-glvnd-devel-ubuntu18.04
 
 # Global settings
-# Torch 1.4, only has Cuda 10.1 support (I think..)
 ENV CMAKE_VERSION=3.17.2
 ENV PROTO_VERSION=3.12.3
 
@@ -46,6 +45,17 @@ RUN cd /usr/local/src && sudo wget https://github.com/protocolbuffers/protobuf/r
     && sudo make check \
     && sudo make install \
     && sudo ldconfig
+
+# MOVE UP
+ENV GRPC_VERSION=1.30.2
+
+# gRPC
+RUN sudo apt-get update \
+    && sudo apt-get install -y build-essential autoconf libtool pkg-config
+
+RUN cd /usr/local/src \ && sudo git clone -b v$GRPC_VERSION https://github.com/grpc/grpc \
+    && cd grpc \
+    && sudo git submodule update --init
 
 # Clean up
 RUN sudo rm -r ~/temp \ 
