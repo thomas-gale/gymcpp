@@ -57,6 +57,13 @@ RUN cd /usr/local/src \ && sudo git clone -b v$GRPC_VERSION https://github.com/g
     && cd grpc \
     && sudo git submodule update --init
 
+RUN cd /usr/local/src/grpc \
+    && sudo mkdir -p cmake/build \
+    && cd cmake/build \
+    && sudo cmake ../.. \
+    && sudo make -j8 \
+    && sudo make install
+
 # Clean up
 RUN sudo rm -r ~/temp \ 
     && sudo apt-get autoremove -y \
