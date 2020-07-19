@@ -5,10 +5,8 @@
 #include "core/class_db.h"
 #include "src/summator.h"
 
-void register_gymcpp_types() {
-    ClassDB::register_class<Summator>();
-}
+void register_gymcpp_types() { ClassDB::register_class<Summator>(); }
 
 void unregister_gymcpp_types() {
-   // Nothing to do here in this example.
+    // Nothing to do here in this example.
 }
