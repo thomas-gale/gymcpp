@@ -5,15 +5,47 @@ env_gymcpp = env.Clone()
 
 # Add header include path
 env_gymcpp.Append(CPPPATH = "./include")
+env_gymcpp.Append(CPPPATH = "./build/protobuf")
 
 # Add protoc generated source to the build
 env_gymcpp.add_source_files(env.modules_sources, "build/protobuf/*.cc")
 
 # Add the src server cpp files to the build.
-# .. TODO
+env_gymcpp.add_source_files(env.modules_sources, ["src/server/server.cpp"]) 
 
 # Add all src GDCLASS cpp files to the build
-env_gymcpp.add_source_files(env.modules_sources, ["register_types.cpp", "src/godot/summator.cpp", "src/godot/gdserver.cpp"]) 
+env_gymcpp.add_source_files(env.modules_sources, ["register_types.cpp", "src/godot/gdserver.cpp"]) 
 
-# Link with protobuf and grpc
-env.Append(LIBS=['protobuf', 'grpc++', 'grpc++_reflection'])
+# Set to c++ 17
+env_gymcpp.Append(CXXFLAGS=['-std=c++17'])
+
+# Link with grpc and protobuf
+# These were scraped from /build/test/CMakeFiles/gymcpp_test.dir/build.make
+env.Append(LIBS=[
+'grpc++',
+'grpc++_reflection',
+'protobuf',
+'grpc',
+'ssl',
+'crypto',
+'z',
+'cares',
+'absl_bad_optional_access',
+'gpr',
+'absl_time',
+'absl_civil_time',
+'absl_time_zone',
+'absl_str_format_internal',
+'absl_strings',
+'absl_strings_internal',
+'absl_base',
+'absl_dynamic_annotations',
+'absl_spinlock_wait',
+'rt',
+'absl_int128',
+'absl_throw_delegate',
+'absl_raw_logging_internal',
+'absl_log_severity',
+'address_sorting',
+'upb',
+])
