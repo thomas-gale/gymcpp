@@ -1,6 +1,6 @@
 /* summator.cpp */
 
-#include "gym/summator.h"
+#include "gym/godot/summator.h"
 
 void Summator::add(int p_value) {
     count += p_value;
