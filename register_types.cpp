@@ -3,7 +3,7 @@
 #include "register_types.h"
 
 #include "core/class_db.h"
-#include "src/summator.h"
+#include "gym/summator.h"
 
 void register_gymcpp_types() { ClassDB::register_class<Summator>(); }
 

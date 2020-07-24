@@ -3,6 +3,10 @@
 Import('env')
 env_gymcpp = env.Clone()
 
+# Add header include path
+#env_gymcpp.Append(CPPPATH = "/workspaces/godot/modules/gymcpp/include")
+env_gymcpp.Append(CPPPATH = "./include")
+
 # Add protoc generated source to the build
 env_gymcpp.add_source_files(env.modules_sources, "build/protobuf/*.cc")
 
@@ -10,7 +14,7 @@ env_gymcpp.add_source_files(env.modules_sources, "build/protobuf/*.cc")
 # .. TODO
 
 # Add all src GDCLASS cpp files to the build
-env_gymcpp.add_source_files(env.modules_sources, ["register_types.cpp", "src/summator.cpp"]) 
+env_gymcpp.add_source_files(env.modules_sources, ["register_types.cpp", "src/godot/summator.cpp"]) 
 
 # Link with protobuf and grpc
 env.Append(LIBS=['protobuf', 'grpc++', 'grpc++_reflection'])

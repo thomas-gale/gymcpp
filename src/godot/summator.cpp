@@ -1,6 +1,6 @@
 /* summator.cpp */
 
-#include "summator.h"
+#include "gym/summator.h"
 
 void Summator::add(int p_value) {
     count += p_value;
