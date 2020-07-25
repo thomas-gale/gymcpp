@@ -16,6 +16,7 @@ class GymImpl final : public gymcpp::Gym::Service {
     EnvironmentInfo(grpc::ServerContext* context,
                     const gymcpp::EnvironmentRequest* request,
                     gymcpp::EnvironmentResponse* response) override {
+        std::cout << "Environment request recieved\n";
         // Get information about environment
         auto* actionSpace = new gymcpp::Space();
         actionSpace->set_type(gymcpp::Space_SpaceType_DISCRETE);
@@ -31,6 +32,7 @@ class GymImpl final : public gymcpp::Gym::Service {
     grpc::Status Reset(grpc::ServerContext* context,
                        const gymcpp::ResetRequest* request,
                        gymcpp::ResetResponse* response) override {
+        std::cout << "Reset request recieved\n";
         // Reset environment
         auto* initialState = new gymcpp::State();
         initialState->set_observation(0, 42.0);
@@ -46,6 +48,7 @@ class GymImpl final : public gymcpp::Gym::Service {
     grpc::Status Step(grpc::ServerContext* context,
                       const gymcpp::StepRequest* request,
                       gymcpp::StepResponse* response) override {
+        std::cout << "Step request recieved\n";
         // Step in environment
         auto* currentState = new gymcpp::State();
         currentState->set_observation(0, 64.0);
@@ -70,6 +73,8 @@ Server::~Server() {
 void Server::run() {
     std::stringstream ss;
     ss << host_ << ":" << port_;
+    std::string target(ss.str());
+    std::cout << "Running server... " << target << std::endl;
 
     GymImpl service;
 
@@ -78,13 +83,13 @@ void Server::run() {
     grpc::ServerBuilder builder;
 
     // Listen on the given address without any authentication mechanism.
-    builder.AddListeningPort(ss.str(), grpc::InsecureServerCredentials());
+    builder.AddListeningPort(target, grpc::InsecureServerCredentials());
     // Register "service" as the instance through which we'll communicate with
     // clients. In this case it corr>esponds to an *synchronous* service.
     builder.RegisterService(&service);
     // Finally assemble the server.
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-    std::cout << "Server listening on " << ss.str() << std::endl;
+    std::cout << "Server listening on " << target << std::endl;
 
     // Wait for the server to shutdown. Note that some other thread must be
     // responsible for shutting down the server for this call to ever return.
