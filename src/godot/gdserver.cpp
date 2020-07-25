@@ -10,11 +10,14 @@ void Server::_bind_methods() {
 }
 
 void Server::init(const String& host, int port) {
+    print_line(vformat("Initialising GymServer on %s:%S...", host, port));
     std::wstring whost(host.c_str());
     std::string shost(whost.begin(), whost.end());
     server_ = std::make_unique<gym::Server>(shost, port);
 }
 
 void Server::run() {
+    print_line("Running Server...");
     // Start the internal server
+    server_->run();
 }
